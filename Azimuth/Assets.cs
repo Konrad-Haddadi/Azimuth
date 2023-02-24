@@ -5,7 +5,7 @@ namespace Azimuth
 	public static class Assets
 	{
 		private static Dictionary<string, Texture2D> textures = new Dictionary<string, Texture2D>();
-		private static Dictionary<string, Image> images= new Dictionary<string, Image>();
+		private static Dictionary<string, Image> images = new Dictionary<string, Image>();
 		private static Dictionary<string, Sound> sounds = new Dictionary<string, Sound>();
 		private static Dictionary<string, Font> fonts = new Dictionary<string, Font>();
 
@@ -20,7 +20,6 @@ namespace Azimuth
 			if(_id.Contains("Fonts") && fonts.ContainsKey(_id))
 				return (ASSET_TYPE) Convert.ChangeType(fonts[_id], typeof(ASSET_TYPE));
 
-
 			throw new FieldAccessException($"Asset with ID '{_id}' does not exist!");
 		}
 
@@ -32,7 +31,6 @@ namespace Azimuth
 			LoadAllOfType<Image>(images, "Images", "jpg", Raylib.LoadImage);
 			LoadAllOfType<Sound>(sounds, "Sounds", "wav", Raylib.LoadSound);
 			LoadAllOfType<Font>(fonts, "Fonts", "ttf", Raylib.LoadFont);
-			
 		}
 
 		private static void LoadAllOfType<ASSET_TYPE>(Dictionary<string, ASSET_TYPE> _asset, string _folder, string _extension, Func<string, ASSET_TYPE> _loadFnc)
@@ -43,7 +41,7 @@ namespace Azimuth
 			{
 				string id = string.Concat($"{_folder}/", file.AsSpan(file.LastIndexOf(_folder, StringComparison.Ordinal) + _folder.Length + 1));
 				id = id.Replace($".{_extension}", "").Replace('\\', '/');
-				
+
 				_asset.Add(id, _loadFnc(file));
 			}
 		}
@@ -57,11 +55,9 @@ namespace Azimuth
 			if(!Directory.Exists(path))
 				return files;
 
-			foreach(string file in Directory.GetFiles(path, $"'*.{_extension}", SearchOption.AllDirectories))
+			foreach(string file in Directory.GetFiles(path, $"*.{_extension}", SearchOption.AllDirectories))
 				files.Add(file);
-			{
-				
-			}
+
 			return files;
 		}
 
@@ -81,7 +77,7 @@ namespace Azimuth
 		{
 			foreach(ASSET_TYPE asset in _asset.Values)
 				_unloadfnc(asset);
-			
+
 			_asset.Clear();
 		}
 
