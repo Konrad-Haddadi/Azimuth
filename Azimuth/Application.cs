@@ -25,7 +25,7 @@ namespace Azimuth
 
 		private readonly Game game;
 
-		public Application(Game _game)
+		private Application(Game _game)
 		{
 			Config.Create();
 			Window = new Window();

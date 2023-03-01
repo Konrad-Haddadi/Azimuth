@@ -159,7 +159,7 @@ namespace Azimuth
 			string varName = _line.Substring(0,equalIndex);
 			string val = _line.Substring(equalIndex + 1, _line.Length - equalIndex - 1 );
 
-			if(val.Contains('.') && !IsNotDecimal(val))
+			if(val.Contains('.') && IsDecimal(val))
 			{
 				// Process a decimal value
 				ProcessDecimal(varName, val, _category);
@@ -212,9 +212,9 @@ namespace Azimuth
 				
 			}
 		}
-		private static bool IsNotDecimal(string _val)
+		private static bool IsDecimal(string _val)
 		{
-			return !_val.Any(char.IsLetter) && _val.All(_c => _c != '.');
+			return !(_val.Any(char.IsLetter) || _val.All(_c => _c != '.'));
 		}
 
 		private static string ProcessCategory(string _line, string _category)
