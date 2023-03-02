@@ -21,7 +21,7 @@ namespace Azimuth_Test
 		{
 			int counter = 0;
 			image = new ImageWidget(Vector2.Zero, new Vector2(500, 1000), "KAKAROT");
-			button = new Button(new Vector2(100,245), normal, new Vector2(215, 90));
+			button = new Button(new Vector2(100,245), normal);
 			UIManager.Add(button);
 			button.AddListener(OnClickButton);
 			button.AddListener(() =>

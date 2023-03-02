@@ -7,12 +7,13 @@ namespace Azimuth.UI
 	public class Button : InteractableWidget
 	{
 		public delegate void OnClickEvent();
-		
+
+		public static Vector2 size;
 		private readonly float roundednesss;
 		private readonly string text;
 		private readonly int fontSize;
 		private readonly float fontSpacing;
-
+	
 		private readonly Font font;
 		private readonly Color textColor;
 		private readonly Vector2 textSize;
@@ -45,8 +46,8 @@ namespace Azimuth.UI
 
 		private OnClickEvent? onClick;
 		
-		public Button(Vector2 _position, RenderSettings _settings, Vector2 _size)
-			: base(_position, _size, _settings.colors)
+		public Button(Vector2 _position, RenderSettings _settings)
+			: base(_position, size, _settings.colors)
 		{
 			roundednesss = _settings.roundedness;
 			text = _settings.text;
