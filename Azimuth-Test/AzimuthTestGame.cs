@@ -9,8 +9,6 @@ namespace Azimuth_Test
 {
 	public class AzimuthTestGame : Game
 	{
-		public float windowWidth = Application.Instance.Window.Width;
-		public float windowHeight = Application.Instance.Window.Height;
 		private ImageWidget image;
 		private Button button;
 		private Button.RenderSettings normal = new Button.RenderSettings("Konrad", 50, Color.PINK);
@@ -22,8 +20,8 @@ namespace Azimuth_Test
 		public override void Load()
 		{
 			int counter = 0;
-			image = new ImageWidget(Vector2.Zero, new Vector2(windowWidth, windowHeight), "KAKAROT");
-			button = new Button(new Vector2(100,245), normal);
+			image = new ImageWidget(Vector2.Zero, new Vector2(500, 1000), "KAKAROT");
+			button = new Button(new Vector2(100,245), normal, new Vector2(215, 90));
 			UIManager.Add(button);
 			button.AddListener(OnClickButton);
 			button.AddListener(() =>

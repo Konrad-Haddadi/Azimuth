@@ -9,7 +9,7 @@ namespace Azimuth
 		public  int Height { get; private set; }
 		public  string Title{ get; }
 		public Color ClearColor { get; }
-		
+
 		public Window()
 		{
 			Width = Config.Get<int>("Window", "width");
@@ -21,6 +21,7 @@ namespace Azimuth
 			
 			if(Config.Get<bool>("Window", "resizableWindow"))
 				Raylib.SetConfigFlags(ConfigFlags.FLAG_WINDOW_RESIZABLE);
+			
 		}
 
 		public void Open()

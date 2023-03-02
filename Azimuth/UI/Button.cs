@@ -8,10 +8,6 @@ namespace Azimuth.UI
 	{
 		public delegate void OnClickEvent();
 		
-		public static  Vector2 buttonSize;
-		public Vector2 _buttonSize => buttonSize;
-		private static  Vector2 pos;
-		
 		private readonly float roundednesss;
 		private readonly string text;
 		private readonly int fontSize;
@@ -20,8 +16,7 @@ namespace Azimuth.UI
 		private readonly Font font;
 		private readonly Color textColor;
 		private readonly Vector2 textSize;
-		// Bellow is just allowing "RenderSetting sett = RenderSetting normal" in other classes
-		// instead of RenderSetting sett = new RenderSetting()
+		
 		public class RenderSettings
 		{
 			public ColorBlock colors = new ColorBlock()
@@ -42,9 +37,7 @@ namespace Azimuth.UI
 			{
 				text = _text;
 				fontSize = _fontSize;
-				
 				textColor = _textColor;
-				buttonSize = new Vector2(fontSize * text.Length, _fontSize * 2); 
 			}
 			
 			
@@ -52,14 +45,14 @@ namespace Azimuth.UI
 
 		private OnClickEvent? onClick;
 		
-		public Button(Vector2 _position, RenderSettings _settings)
-			: base(_position, buttonSize, _settings.colors)
+		public Button(Vector2 _position, RenderSettings _settings, Vector2 _size)
+			: base(_position, _size, _settings.colors)
 		{
 			roundednesss = _settings.roundedness;
 			text = _settings.text;
 			fontSize = _settings.fontSize;
 			fontSpacing = _settings.fontSpacing;
-			pos = _position + (buttonSize / 4);
+			
 			font = string.IsNullOrEmpty(_settings.fontId) ? Raylib.GetFontDefault() : Assets.Find<Font>(_settings.fontId);
 			textColor = _settings.textColor;
 			
@@ -70,13 +63,9 @@ namespace Azimuth.UI
 		public void AddListener(OnClickEvent _event)
 		{
 			if(onClick == null)
-			{
 				onClick = _event;
-			}
 			else
-			{
 				onClick += _event;
-			}
 		}
 
 		public void RemoveListener(OnClickEvent _event)
@@ -87,7 +76,7 @@ namespace Azimuth.UI
 		public override void Draw()
 		{
 			Raylib.DrawRectanglePro(Bounds, Vector2.Zero, 0, ColorFromState());
-			Raylib.DrawTextPro(font, text, pos, Vector2.Zero, 0f, fontSize, fontSpacing, textColor);
+			Raylib.DrawTextPro(font, text, new Vector2(position.X + 25, position.Y + 15), Vector2.Zero, 0f, fontSize, fontSpacing, textColor);
 		}
 
 		protected override void OnStateChange(InteractionState _state, InteractionState _oldstate)
