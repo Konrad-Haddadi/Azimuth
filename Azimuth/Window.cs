@@ -5,8 +5,8 @@ namespace Azimuth
 	public  sealed class Window
 	{
 		
-		public  int Width { get; private set; }
-		public  int Height { get; private set; }
+		public  static int Width { get; private set; }
+		public  static int Height { get; private set; }
 		public  string Title{ get; }
 		public Color ClearColor { get; }
 		
