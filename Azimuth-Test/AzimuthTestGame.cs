@@ -12,7 +12,7 @@ namespace Azimuth_Test
 		
 		private ImageWidget image;
 		private Button button;
-		private Button.RenderSettings normal = new Button.RenderSettings("big", 5, 1f, Color.BLUE);
+		private Button.RenderSettings normal = new Button.RenderSettings("Konrad", 50, Color.PINK);
 
 		private void OnClickButton()
 		{
@@ -20,13 +20,23 @@ namespace Azimuth_Test
 		}
 		public override void Load()
 		{
+			int counter = 0;
 			image = new ImageWidget(Vector2.Zero, new Vector2(Window.Width, Window.Height), "KAKAROT");
 			button = new Button(new Vector2(100,245), normal);
 			UIManager.Add(button);
 			button.AddListener(OnClickButton);
 			button.AddListener(() =>
 			{
-				UIManager.Add(image);
+				if(counter % 2 == 0)
+				{
+					UIManager.Add(image);
+				}
+				else
+				{
+					UIManager.Remove(image);
+				}
+
+				counter++;
 			});
 			
 		}

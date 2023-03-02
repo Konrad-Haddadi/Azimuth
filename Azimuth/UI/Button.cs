@@ -9,7 +9,8 @@ namespace Azimuth.UI
 		public delegate void OnClickEvent();
 		
 		public static  Vector2 buttonSize;
-		public static  Vector2 pos;
+		public Vector2 _buttonSize => buttonSize;
+		private static  Vector2 pos;
 		
 		private readonly float roundednesss;
 		private readonly string text;
@@ -31,20 +32,21 @@ namespace Azimuth.UI
 				selected = Color.BLACK
 			};
 			public string text;
-			public float roundedness = 0.1f;
 			public int fontSize;
-			public float fontSpacing;
-			public string? fontId = null;
 			public Color textColor;
+			public float roundedness = 0.1f;
+			public float fontSpacing = 1f;
+			public string? fontId = null;
 			
-			public RenderSettings(string _text, int _fontSize, float _fontSpacing, Color _textColor) : base()
+			public RenderSettings(string _text, int _fontSize, Color _textColor) : base()
 			{
 				text = _text;
 				fontSize = _fontSize;
-				fontSpacing = _fontSpacing;
+				
 				textColor = _textColor;
-				buttonSize = new Vector2(fontSize * text.Length, _fontSize * 2);
+				buttonSize = new Vector2(fontSize * text.Length, _fontSize * 2); 
 			}
+			
 			
 		}
 
@@ -84,7 +86,7 @@ namespace Azimuth.UI
 		}
 		public override void Draw()
 		{
-			Raylib.DrawRectangleRounded(Bounds, roundednesss, 5, ColorFromState());
+			Raylib.DrawRectanglePro(Bounds, Vector2.Zero, 0, ColorFromState());
 			Raylib.DrawTextPro(font, text, pos, Vector2.Zero, 0f, fontSize, fontSpacing, textColor);
 		}
 
