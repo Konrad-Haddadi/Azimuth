@@ -4,7 +4,7 @@ using System.Numerics;
 
 namespace Azimuth.UI
 {
-	public class InteractableWidget : Widget
+	public abstract class InteractableWidget : Widget
 	{
 		public InteractionState State { get; private set; }
 
@@ -56,10 +56,7 @@ namespace Azimuth.UI
 				OnStateChange(State, oldState);
 		}
 
-		protected virtual void OnStateChange(InteractionState _state, InteractionState _oldstate)
-		{
-			
-		}
+		protected abstract void OnStateChange(InteractionState _state, InteractionState _oldstate);
 
 		protected Color ColorFromState()
 		{

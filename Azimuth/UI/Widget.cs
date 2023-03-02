@@ -4,7 +4,7 @@ using System.Numerics;
 
 namespace Azimuth.UI
 {
-	public class Widget : IComparable<Widget>
+	public abstract class Widget : IComparable<Widget>
 	{
 		public Rectangle Bounds => new Rectangle(position.X, position.Y, size.X, size.Y);
 		
@@ -19,7 +19,14 @@ namespace Azimuth.UI
 			position = _position;
 			size = _size;
 		}
-
+		/// <summary>
+		/// Higher numbers get drawn on top
+		/// </summary>
+		/// <param name="_layer"></param>
+		public void SetDrawLayer(int _layer)
+		{
+			drawLayer = _layer;
+		}
 		public virtual void Draw()
 		{
 			Raylib.DrawRectangleRec(Bounds, Color.WHITE);
