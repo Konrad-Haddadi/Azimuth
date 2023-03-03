@@ -25,16 +25,16 @@ namespace Azimuth.UI
 				normal =  Color.LIGHTGRAY,
 				selected = Color.BLACK
 			};
-			public string text;
+			
 			public int fontSize;
 			public Color textColor;
 			public float roundedness = 0.1f;
 			public float fontSpacing = 1f;
 			public string? fontId = null;
 			
-			public RenderSettings(string _text, int _fontSize, Color _textColor) : base()
+			public RenderSettings( int _fontSize, Color _textColor) : base()
 			{
-				text = _text;
+				
 				fontSize = _fontSize;
 				textColor = _textColor;
 				
@@ -43,11 +43,12 @@ namespace Azimuth.UI
 
 		private OnClickEvent? onClick;
 		
-		public Button(Vector2 _position, RenderSettings _settings)
+		public Button(Vector2 _position, string _text, RenderSettings _settings)
 			: base(_position, Vector2.Zero, _settings.colors)
 		{
+			
 			roundednesss = _settings.roundedness;
-			text = _settings.text;
+			text = _text;
 			fontSize = _settings.fontSize;
 			fontSpacing = _settings.fontSpacing;
 			
@@ -58,11 +59,11 @@ namespace Azimuth.UI
 			textSize = Raylib.MeasureTextEx(font, text, fontSize, fontSpacing);
 			size = textSize;
 		}
-		public Button(Vector2 _position, Vector2 _buttonSize, RenderSettings _settings)
+		public Button(Vector2 _position, Vector2 _buttonSize, string _text, RenderSettings _settings)
 			: base(_position, _buttonSize, _settings.colors)
 		{
 			roundednesss = _settings.roundedness;
-			text = _settings.text;
+			text = _text;
 			fontSize = _settings.fontSize;
 			fontSpacing = _settings.fontSpacing;
 			

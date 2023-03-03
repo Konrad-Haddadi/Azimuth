@@ -1,4 +1,5 @@
 ﻿using Azimuth;
+using Azimuth.GameObject;
 using Azimuth.UI;
 
 using Raylib_cs;
@@ -11,20 +12,26 @@ namespace Azimuth_Test
 	{
 		private ImageWidget image;
 		private Button button;
-		private Button.RenderSettings normal = new("MATT", 50, Color.PINK);
 		private Button button2;
-		private Button.RenderSettings normal2 = new("Konrad", 50, Color.BLUE);
+		private Button.RenderSettings normal = new(50, Color.PINK);
+		private AnimatedGameObject dino;
+		private int startPoint = 0;
 
 		private void OnClickButton()
 		{
 			Console.Write("Hello World");
 		}
+
 		public override void Load()
 		{
+			
+			dino = new("duck", new Vector2(startPoint,0), new Vector2(118, 60));
 			int counter = 0;
 			image = new ImageWidget(Vector2.Zero, new Vector2(500, 1000), "KAKAROT");
-			button = new Button(new Vector2(50, 245), normal);
-			button2 = new Button(new Vector2(50,500), new Vector2(200, 100), normal2);
+			button = new Button(new Vector2(50, 245), "Konrad", normal);
+			button2 = new Button(new Vector2(50, 500), new Vector2(200, 100), "Mathew", normal);
+			
+			GameObjectManager.Add(dino);
 			UIManager.Add(button);
 			UIManager.Add(button2);
 			button.AddListener(OnClickButton);
@@ -41,12 +48,20 @@ namespace Azimuth_Test
 
 				counter++;
 			});
-			
 		}
-		
-		public override void Unload()
+
+		public override void Update(float _deltaTime)
 		{
-			
+			if(_deltaTime % 2 = 0)
+			{
+				startPoint += 118;
+			}
+			else
+			{
+				startPoint = 0;
+			}
 		}
+
+		public override void Unload() { }
 	}
 }
