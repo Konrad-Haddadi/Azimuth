@@ -8,7 +8,6 @@ namespace Azimuth.UI
 	{
 		public delegate void OnClickEvent();
 
-		public static Vector2 size;
 		private readonly float roundednesss;
 		private readonly string text;
 		private readonly int fontSize;
@@ -17,7 +16,6 @@ namespace Azimuth.UI
 		private readonly Font font;
 		private readonly Color textColor;
 		private readonly Vector2 textSize;
-		
 		public class RenderSettings
 		{
 			public ColorBlock colors = new ColorBlock()
@@ -39,15 +37,14 @@ namespace Azimuth.UI
 				text = _text;
 				fontSize = _fontSize;
 				textColor = _textColor;
+				
 			}
-			
-			
 		}
 
 		private OnClickEvent? onClick;
 		
 		public Button(Vector2 _position, RenderSettings _settings)
-			: base(_position, size, _settings.colors)
+			: base(_position, Vector2.Zero, _settings.colors)
 		{
 			roundednesss = _settings.roundedness;
 			text = _settings.text;
@@ -58,8 +55,27 @@ namespace Azimuth.UI
 			textColor = _settings.textColor;
 			
 			//Raylib function that creates a bounding box around the font based on its size and spacing
-			textSize = Raylib.MeasureTextEx(font, text, fontSize, fontSpacing) * 0.5f;
+			textSize = Raylib.MeasureTextEx(font, text, fontSize, fontSpacing);
+			size = textSize;
 		}
+		public Button(Vector2 _position, Vector2 _buttonSize, RenderSettings _settings)
+			: base(_position, _buttonSize, _settings.colors)
+		{
+			roundednesss = _settings.roundedness;
+			text = _settings.text;
+			fontSize = _settings.fontSize;
+			fontSpacing = _settings.fontSpacing;
+			
+			font = string.IsNullOrEmpty(_settings.fontId) ? Raylib.GetFontDefault() : Assets.Find<Font>(_settings.fontId);
+			textColor = _settings.textColor;
+			
+			//Raylib function that creates a bounding box around the font based on its size and spacing
+			textSize = Raylib.MeasureTextEx(font, text, fontSize, fontSpacing);
+			size = _buttonSize;
+		}
+
+		
+		
 
 		public void AddListener(OnClickEvent _event)
 		{
@@ -77,7 +93,8 @@ namespace Azimuth.UI
 		public override void Draw()
 		{
 			Raylib.DrawRectanglePro(Bounds, Vector2.Zero, 0, ColorFromState());
-			Raylib.DrawTextPro(font, text, new Vector2(position.X + 25, position.Y + 15), Vector2.Zero, 0f, fontSize, fontSpacing, textColor);
+			Vector2 p = size - textSize;
+			Raylib.DrawTextPro(font, text, new Vector2(position.X + p.X * 0.5f, position.Y + p.Y * 0.5f), Vector2.Zero, 0f, fontSize, fontSpacing, textColor);
 		}
 
 		protected override void OnStateChange(InteractionState _state, InteractionState _oldstate)

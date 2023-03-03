@@ -6,7 +6,7 @@ namespace Azimuth.GameObject
 	{
 		private static List<GameObject> gameObjects = new List<GameObject>();
 
-		public static void Spawn(GameObject _gameObject)
+		public static void Add(GameObject _gameObject)
 		{
 			if(!gameObjects.Contains(_gameObject))
 			{
@@ -15,7 +15,7 @@ namespace Azimuth.GameObject
 			}
 		}
 
-		public static void Destroy(GameObject _gameObject)
+		public static void Remove(GameObject _gameObject)
 		{
 			if(gameObjects.Contains(_gameObject))
 			{
