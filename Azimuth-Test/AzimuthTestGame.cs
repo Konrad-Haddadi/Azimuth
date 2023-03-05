@@ -13,55 +13,53 @@ namespace Azimuth_Test
 		private ImageWidget image;
 		private Button button;
 		private Button button2;
-		private Button.RenderSettings normal = new(50, Color.PINK);
-		private AnimatedGameObject dino;
-		private int startPoint = 0;
+		private Player player;
 
+		private Button.RenderSettings normal = new(75, Color.PINK);
+		private Movement movementSettings = new Movement(2, KeyboardKey.KEY_A, KeyboardKey.KEY_D, KeyboardKey.KEY_W,
+			KeyboardKey.KEY_S);
+		
 		private void OnClickButton()
 		{
-			Console.Write("Hello World");
+			
 		}
 
 		public override void Load()
 		{
-			
-			dino = new("duck", new Vector2(startPoint,0), new Vector2(118, 60));
-			int counter = 0;
+			player = new Player("duck", new Vector2(118, 60), 2, 1, movementSettings.position);
 			image = new ImageWidget(Vector2.Zero, new Vector2(500, 1000), "KAKAROT");
 			button = new Button(new Vector2(50, 245), "Konrad", normal);
 			button2 = new Button(new Vector2(50, 500), new Vector2(200, 100), "Mathew", normal);
 			
-			GameObjectManager.Add(dino);
+			GameObjectManager.Add(movementSettings);
+			GameObjectManager.Add(player);
 			UIManager.Add(button);
 			UIManager.Add(button2);
-			button.AddListener(OnClickButton);
-			button.AddListener(() =>
-			{
-				if(counter % 2 == 0)
-				{
-					UIManager.Add(image);
-				}
-				else
-				{
-					UIManager.Remove(image);
-				}
-
-				counter++;
-			});
+			
 		}
-
 		public override void Update(float _deltaTime)
 		{
-			if(_deltaTime % 2 = 0)
+			GameObjectManager.Update(_deltaTime);
+			
+			player.position = movementSettings.position;
+			
+			if (Raylib.IsKeyPressed(KeyboardKey.KEY_SPACE))
 			{
-				startPoint += 118;
+				Console.WriteLine($"{player.position}");
+				Console.WriteLine($"{movementSettings.position}");
+				Console.WriteLine($"{player.source}");
+				Console.WriteLine($"{player.dest}");
 			}
-			else
-			{
-				startPoint = 0;
-			}
+			
 		}
 
-		public override void Unload() { }
+		public override void Draw()
+		{
+			player.Draw();
+		}
+
+		public override void Unload()
+		{
+		}
 	}
 }
