@@ -12,9 +12,10 @@ namespace Azimuth.GameObject
 		public Vector2 pos;
 		public Vector2 size;
 		public Vector2 srcNum;
-		public float currentImage = 0;
-		
-		
+		public Vector2 imgNum = new Vector2(0,0);
+		private Vector2 widthHeight;
+
+
 		public AnimatedGameObject (string _image, Vector2 _size, Vector2 _srcNum)
 		{
 			size = _size;
@@ -24,15 +25,16 @@ namespace Azimuth.GameObject
 
 		public void Update(Vector2 _pos)
 		{
+			widthHeight = new Vector2(texture.width / srcNum.X, texture.height / srcNum.Y);
 			pos.X = _pos.X;
 			pos.Y = _pos.Y;
 			dest  = new Rectangle(pos.X, pos.Y, size.X, size.Y);
-			source = new Rectangle(currentImage, 0, texture.width / srcNum.X, texture.height / srcNum.Y);
+			source = new Rectangle(imgNum.X, imgNum.Y, widthHeight.X, widthHeight.Y);
 		}
 
 		public override void Draw()
 		{
-			Raylib.DrawTexturePro(texture, source, dest, Vector2.Zero, 0, Color.WHITE);
+			Raylib.DrawTexturePro(texture, source, dest, new Vector2(widthHeight.X * 0.5f, widthHeight.Y * 0.5f), 0, Color.WHITE);
 		}
 	}
 }

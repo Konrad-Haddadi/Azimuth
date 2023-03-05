@@ -10,54 +10,62 @@ namespace Azimuth_Test
 {
 	public class AzimuthTestGame : Game
 	{
-		private ImageWidget image;
-		private Button button;
-		private Button button2;
-		private AnimatedGameObject player;
-
-		private Button.RenderSettings normal = new(75, Color.PINK);
-		private Movement movSet = new Movement(2, KeyboardKey.KEY_A, KeyboardKey.KEY_D, KeyboardKey.KEY_W,
-			KeyboardKey.KEY_S);
-
-		public int posX;
-		public int posY;
+		 
+		private AnimatedGameObject player1;
+		private AnimatedGameObject player2;
 		
-		private void OnClickButton()
-		{
-			
-		}
-
+		private Movement movSet1 = 
+			new Movement(2, KeyboardKey.KEY_A, KeyboardKey.KEY_D, KeyboardKey.KEY_W, KeyboardKey.KEY_S);
+		private Movement movSet2 = 
+			new Movement(2, KeyboardKey.KEY_LEFT, KeyboardKey.KEY_RIGHT, KeyboardKey.KEY_SPACE);
+		
 		public override void Load()
 		{
-			player = new AnimatedGameObject("duck", new Vector2(118, 60), new Vector2(2,1));
 			
-			
-			GameObjectManager.Add(movSet);
-			GameObjectManager.Add(player);
+			player1 = new AnimatedGameObject("Vegeta", new Vector2(125, 200), new Vector2(12,4.5f));
+			player2 = new AnimatedGameObject("Kirby", new Vector2(100, 100),new Vector2(16, 16));
+			GameObjectManager.Add(movSet2);
+			GameObjectManager.Add(movSet1);
+			GameObjectManager.Add(player2);
+			GameObjectManager.Add(player1);
 		}
 		public override void Update(float _deltaTime)
 		{
 			GameObjectManager.Update(_deltaTime);
-			player.Update(movSet.position);
-
-			if (Raylib.IsKeyDown(KeyboardKey.KEY_D))
-			{
-				Console.WriteLine($"{player.currentImage}");
-				player.currentImage += 118;
-				if (player.currentImage > 118)
-				{
-					player.currentImage = 0;
-				}
-			}
+			player1.Update(movSet1.position);
+			player2.Update(movSet2.position);
+			Move();
 		}
 
 		public override void Draw()
 		{
-			player.Draw();
+			player1.Draw();
+			player2.Draw();
 		}
 
 		public override void Unload()
 		{
+		}
+
+		public void Move()
+		{
+			player1.imgNum.X = 0;
+			if (Raylib.IsKeyDown(KeyboardKey.KEY_D))
+			{
+				player1.imgNum.X = 75;
+			}
+			if (Raylib.IsKeyDown(KeyboardKey.KEY_A))
+			{
+				player1.imgNum.X = 115;
+			}
+			if (Raylib.IsKeyDown(KeyboardKey.KEY_W))
+			{
+				player1.imgNum.X = 200;
+			}
+			if (Raylib.IsKeyDown(KeyboardKey.KEY_S))
+			{
+				player1.imgNum.X = 200;
+			}
 		}
 	}
 }
