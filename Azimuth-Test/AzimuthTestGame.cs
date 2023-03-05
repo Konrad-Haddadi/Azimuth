@@ -29,21 +29,26 @@ namespace Azimuth_Test
 
 		public override void Load()
 		{
-			player = new AnimatedGameObject("duck", new Vector2(118, 60), 2, 1);
-			image = new ImageWidget(Vector2.Zero, new Vector2(500, 1000), "KAKAROT");
-			button = new Button(new Vector2(50, 245), "Konrad", normal);
-			button2 = new Button(new Vector2(50, 500), new Vector2(200, 100), "Mathew", normal);
+			player = new AnimatedGameObject("duck", new Vector2(118, 60), new Vector2(2,1));
+			
 			
 			GameObjectManager.Add(movSet);
 			GameObjectManager.Add(player);
-			UIManager.Add(button);
-			UIManager.Add(button2);
-			
 		}
 		public override void Update(float _deltaTime)
 		{
 			GameObjectManager.Update(_deltaTime);
 			player.Update(movSet.position);
+
+			if (Raylib.IsKeyDown(KeyboardKey.KEY_D))
+			{
+				Console.WriteLine($"{player.currentImage}");
+				player.currentImage += 118;
+				if (player.currentImage > 118)
+				{
+					player.currentImage = 0;
+				}
+			}
 		}
 
 		public override void Draw()
