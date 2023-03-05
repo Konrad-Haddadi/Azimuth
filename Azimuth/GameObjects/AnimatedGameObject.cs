@@ -9,17 +9,23 @@ namespace Azimuth.GameObject
 		public Texture2D texture;
 		public Rectangle source;
 		public Rectangle dest;
+		public Vector2 pos;
+		public Vector2 size;
 		
-		public AnimatedGameObject (string _image, Vector2 _size, int _sourceAmountX, int _sourceAmountY, Vector2 _position)
+		
+		public AnimatedGameObject (string _image, Vector2 _size, int _sourceAmountX, int _sourceAmountY)
 		{
+			size = _size;
 			texture = Assets.Find<Texture2D>($"Textures/{_image}");
-			dest  = new Rectangle(_position.X, _position.Y, _size.X, _size.Y);
 			source = new Rectangle(0, 0, texture.width / _sourceAmountX, texture.height / _sourceAmountY);
+			
 		}
 
-		public override void Update(float _deltaTime)
+		public void Update(Vector2 _pos)
 		{
-			
+			pos.X = _pos.X;
+			pos.Y = _pos.Y;
+			dest  = new Rectangle(pos.X, pos.Y, size.X, size.Y);
 		}
 
 		public override void Draw()

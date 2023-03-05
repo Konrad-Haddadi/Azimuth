@@ -37,24 +37,17 @@ public class Movement : GameObject
     public Vector2 MovementSettings(float _deltaTime)
     {
         if (Raylib.IsKeyDown(left))
-        {
             position.X-= speed;
-            
-        }
-        else if (Raylib.IsKeyDown(right))
-        {
+        
+        if (Raylib.IsKeyDown(right))
             position.X+= speed;
-            
-        }
-        else if (Raylib.IsKeyDown(up))
-        {
+        
+        if (Raylib.IsKeyDown(up))
             position.Y -= speed;
-        }
-        else if (Raylib.IsKeyDown(down))
-        {
+        
+        if (Raylib.IsKeyDown(down))
             position.Y+= speed;
-        }
-
+        
         return position;
     }
 }
