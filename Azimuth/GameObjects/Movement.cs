@@ -40,12 +40,14 @@ public class Movement : GameObject
 
     public override void Update(float _deltaTime)
     {
-        position = MovementSettings();
+        position = MovementSettings(_deltaTime);
         position.Y += OnGroundCheck(_deltaTime);
     }
 
-    public Vector2 MovementSettings()
+    public Vector2 MovementSettings(float _deltaTime)
     {
+        if (Raylib.IsKeyPressed(jump))
+            position.Y -= jumpHeight * _deltaTime ;
         
         if (Raylib.IsKeyDown(left))
             position.X-= speed;
@@ -64,7 +66,11 @@ public class Movement : GameObject
 
     public float OnGroundCheck(float _deltaTime)
     {
-        if (position.Y == groundHeight)
+        if (Raylib.IsKeyPressed(jump))
+        {
+            yVelocity = 0;
+        }
+        else if (position.Y == groundHeight)
         {
             yVelocity = 0;
         }

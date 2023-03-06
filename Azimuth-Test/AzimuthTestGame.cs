@@ -20,7 +20,7 @@ namespace Azimuth_Test
 		public override void Load()
 		{
 			movSet1 = new Movement(2, new Vector2(200, 200), KeyboardKey.KEY_A, KeyboardKey.KEY_D, KeyboardKey.KEY_W, KeyboardKey.KEY_S);
-			movSet2 = new Movement(2, new Vector2(200, 400), 10, KeyboardKey.KEY_LEFT, KeyboardKey.KEY_RIGHT, KeyboardKey.KEY_SPACE);
+			movSet2 = new Movement(2, new Vector2(200, 400), 100, KeyboardKey.KEY_LEFT, KeyboardKey.KEY_RIGHT, KeyboardKey.KEY_SPACE);
 			
 			player1 = new AnimatedGameObject("Vegeta", new Vector2(125, 200), new Vector2(12,4.5f));
 			player2 = new AnimatedGameObject("Kirby", new Vector2(100, 100),new Vector2(16, 16));
