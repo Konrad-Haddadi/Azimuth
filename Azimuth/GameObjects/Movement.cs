@@ -10,10 +10,16 @@ public class Movement : GameObject
     private KeyboardKey up;
     private KeyboardKey down;
     private KeyboardKey jump;
+    public float groundHeight;
+    private const float GRAVITY = -1.1f;
+    public float yVelocity = 0;
+    public int jumpHeight;
+    public bool onGround = true;
     public float speed;
     
-    public Movement(float _speed, KeyboardKey _left, KeyboardKey _right, KeyboardKey _up, KeyboardKey _down) 
+    public Movement(float _speed, Vector2 _position, KeyboardKey _left, KeyboardKey _right, KeyboardKey _up, KeyboardKey _down)
     {
+        position = _position;
         left = _left;
         right = _right;
         up = _up;
@@ -21,21 +27,26 @@ public class Movement : GameObject
         speed = _speed;
     }
     
-    public Movement(float _speed, KeyboardKey _left, KeyboardKey _right, KeyboardKey _jump) 
+    public Movement(float _speed, Vector2 _position, int _jumpHeight, KeyboardKey _left, KeyboardKey _right, KeyboardKey _jump) 
     {
+        position = _position;
         left = _left;
         right = _right;
         jump = _jump;
         speed = _speed;
+        jumpHeight = _jumpHeight;
+        onGround = false;
     }
 
     public override void Update(float _deltaTime)
     {
-        position = MovementSettings(_deltaTime / 2);
+        position = MovementSettings();
+        position.Y += OnGroundCheck(_deltaTime);
     }
 
-    public Vector2 MovementSettings(float _deltaTime)
+    public Vector2 MovementSettings()
     {
+        
         if (Raylib.IsKeyDown(left))
             position.X-= speed;
         
@@ -47,7 +58,20 @@ public class Movement : GameObject
         
         if (Raylib.IsKeyDown(down))
             position.Y+= speed;
-        
+
         return position;
+    }
+
+    public float OnGroundCheck(float _deltaTime)
+    {
+        if (position.Y == groundHeight)
+        {
+            yVelocity = 0;
+        }
+        else if (position.Y != groundHeight)
+        {
+            yVelocity -= GRAVITY *_deltaTime;
+        }
+        return yVelocity;
     }
 }

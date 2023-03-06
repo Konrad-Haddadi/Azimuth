@@ -5,6 +5,7 @@ namespace Azimuth.GameObject
 	public class GameObject
 	{
 		public Vector2 position;
+		
 		public virtual void Load() { }
 		public virtual void Draw() { }
 		public virtual void Update(float _deltaTime) { }
