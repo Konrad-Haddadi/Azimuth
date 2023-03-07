@@ -35,7 +35,9 @@ namespace Azimuth_Test
 			GameObjectManager.Update(_deltaTime);
 			player1.Update(movSet1.position);
 			player2.Update(movSet2.position);
+			
 			Move();
+			
 			movSet1.groundHeight = groundHeight;
 			movSet2.groundHeight = groundHeight;
 		}
