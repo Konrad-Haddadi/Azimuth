@@ -16,6 +16,7 @@ public class Movement : GameObject
     public int jumpHeight;
     public bool onGround = true;
     public float speed;
+    public float deltaTime;
     
     public Movement(float _speed, Vector2 _position, KeyboardKey _left, KeyboardKey _right, KeyboardKey _up, KeyboardKey _down)
     {
@@ -36,12 +37,13 @@ public class Movement : GameObject
         speed = _speed;
         jumpHeight = _jumpHeight;
         onGround = false;
+        position.Y += OnGroundCheck();
     }
 
     public override void Update(float _deltaTime)
     {
         position = MovementSettings(_deltaTime);
-        position.Y += OnGroundCheck(_deltaTime);
+        
     }
 
     public Vector2 MovementSettings(float _deltaTime)
@@ -64,7 +66,7 @@ public class Movement : GameObject
         return position;
     }
 
-    public float OnGroundCheck(float _deltaTime)
+    public float OnGroundCheck()
     {
         if (Raylib.IsKeyPressed(jump))
         {
@@ -76,7 +78,7 @@ public class Movement : GameObject
         }
         else if (position.Y != groundHeight)
         {
-            yVelocity -= GRAVITY *_deltaTime;
+            yVelocity -= GRAVITY;
         }
         return yVelocity;
     }
